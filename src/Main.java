@@ -6,6 +6,7 @@ class Main {
         }
         for(int i : vet){
             System.out.println(i);
+            System.out.println(1);
         }
     }
 }
