@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
+        //Scanner para entrada da resposta do usuário
+        Scanner entrada = new Scanner(System.in); 
 
         //Inicia as variaveis que serão usadas
         String[] nome = new String[8];
@@ -14,7 +15,8 @@ class Main {
         int opcao;
         int qtd = 0;
 
-        //MENU
+        //Menu principal do torneio com cadastramento, listas e opçao de sair 
+        //tentamos deixar o mais agradavel e intuitivo possivel para entendimento do usuário.
         do {
             System.out.println("\n==================|TORNEIO|===================");
 
@@ -26,9 +28,11 @@ class Main {
             opcao = entrada.nextInt();
             entrada.nextLine();
 
+            //switch para cada opção no menu
             switch (opcao) {
                 //Cadastrar
                 case 1:
+                    //foi utilizado IF para que quando terminar o registro de um lutador, ele volte ao menu e não cadastre todos de uma vez só.
                     if (qtd == 8) {
                     System.out.println("Limite atingido!");
                     break;
@@ -74,7 +78,7 @@ class Main {
 
                     entrada.nextLine();
 
-                    //dano
+                    //Calculo do dano do lutador 
                     dano[qtd] = ataque[qtd] + defesa[qtd] + agilidade[qtd];
 
                     System.out.println("Dano: " + dano[qtd]);
@@ -83,11 +87,13 @@ class Main {
                     }
                     break;
                 
-                //Mostrar o Lutador 
+                //Mostrar os Lutadores(as)  
                 case 2:
+                    //mensagem de erro para caso não tenha nenhum lutador registrado.
                     if (qtd == 0){
                         System.out.println("\nNenhum lutador cadastrado!!");
                     }
+                    //como irá aparecer ao usuário
                     for (int i = 0; i < qtd; i++) {
                         System.out.println("\nNome: " + nome[i]);
 
@@ -119,7 +125,7 @@ class Main {
 
                     System.out.println("\nDigite o nome: ");
                     pesquisa = entrada.nextLine();
-
+                    
                     boolean encontrou = false;
                     for(int i = 0; i < qtd; i++){
                         if (nome[i] == (pesquisa)){
@@ -141,7 +147,8 @@ class Main {
                     }
                     boolean encontrado = false;
                     int busca;
-                    
+
+                    //menu pra escolher a classe que o usuário quer listar
                     System.out.println("\n===============|LISTAR CLASSES|================");
                     System.out.println("(1) Caça");
                     System.out.println("(2) Guerra");
@@ -158,13 +165,14 @@ class Main {
                             encontrado = true;
                         }
                     }
-
+                    //mensagem de erro caso não tenha nenhum lutador cadastrado na classe
                     if (encontrado == false){
                         System.out.println("\nNenhum lutador nessa classe!");
                     }
 
                     entrada.nextLine();
             }
+            //while para que, caso seja escolhido 5, o programa seja fechado
         } while (opcao != 5);
 
     }
