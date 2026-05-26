@@ -122,8 +122,9 @@ class Main {
                 case 3:
                     
                     String pesquisa;
-
-                    System.out.println("\nDigite o nome: ");
+                    
+                    System.out.println("\n=====================|BUSCAR LUTADOR|====================");
+                    System.out.print("\nDigite o nome: ");
                     pesquisa = entrada.nextLine();
                     
                     boolean encontrou = false;
@@ -160,7 +161,12 @@ class Main {
 
                     for(int i = 0; i < qtd; i++){
                         if (classe[i] == busca){
+                            System.out.println("\n==================|CLASSE|==================");
                             System.out.println("\nNome: " + nome[i]);
+                            System.out.println("Ataque: " + ataque[i]);
+                            System.out.println("Defesa: " + defesa[i]);
+                            System.out.println("Agilidade: " + agilidade[i]);
+                            System.out.println("Dano: " + dano[i]);
 
                             encontrado = true;
                         }
@@ -174,5 +180,6 @@ class Main {
             }
             //while para que, caso seja escolhido 5, o programa seja fechado
         } while (opcao != 5);
+
     }
 }
