@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class Main {
+class Torneio {
     public static void main(String[] args) {
         //Scanner para entrada da resposta do usuário
         Scanner entrada = new Scanner(System.in); 
