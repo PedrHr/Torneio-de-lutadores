@@ -174,7 +174,5 @@ class Main {
             }
             //while para que, caso seja escolhido 5, o programa seja fechado
         } while (opcao != 5);
-
-        entrada.close();
     }
 }
