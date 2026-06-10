@@ -12,6 +12,11 @@ class Torneio {
         int[] defesa = new int[8];
         int[] agilidade = new int[8];
         int[] dano = new int[8];
+        int[] total = new int[8];
+        //sistema pra organizar os lutadores nas lutas
+        int[][] lutas = {{3,4},{3,5},{1,7},{4,5},{6,3},{7,0},{7,5},{1,0},{6,4},{2,6},{1,2},{0,2}};
+        //Grade das pontuações
+        int[][] pontuacao = new int[8][3];
         int opcao;
         int qtd = 0;
 
@@ -24,7 +29,12 @@ class Torneio {
             System.out.println("(2) Mostrar lutadores(as)");
             System.out.println("(3) Buscar por Nome");
             System.out.println("(4) Listar por Classe");
-            System.out.println("(5) Sair");
+            System.out.println("(5) Mostrar Combates");
+            System.out.println("(6) Executar Lutas");
+            System.out.println("(7) Mostrar Pontuações");
+            System.out.println("\n(8) Mostrar Ranking");
+            System.out.println("(9) Sair");
+            System.out.print("\nOpção: ");
             opcao = entrada.nextInt();
             entrada.nextLine();
 
@@ -122,8 +132,9 @@ class Torneio {
                 case 3:
                     
                     String pesquisa;
-
-                    System.out.println("\nDigite o nome: ");
+                    
+                    System.out.println("\n=====================|BUSCAR LUTADOR|====================");
+                    System.out.print("\nDigite o nome: ");
                     pesquisa = entrada.nextLine();
                     
                     boolean encontrou = false;
@@ -160,7 +171,12 @@ class Torneio {
 
                     for(int i = 0; i < qtd; i++){
                         if (classe[i] == busca){
+                            System.out.println("\n==================|CLASSE|" + busca + "|==================");
                             System.out.println("\nNome: " + nome[i]);
+                            System.out.println("Ataque: " + ataque[i]);
+                            System.out.println("Defesa: " + defesa[i]);
+                            System.out.println("Agilidade: " + agilidade[i]);
+                            System.out.println("Dano: " + dano[i]);
 
                             encontrado = true;
                         }
@@ -171,8 +187,100 @@ class Torneio {
                     }
 
                     entrada.nextLine();
+                    break;
+                //Mostrar os lutadores (Quem vai lutar com quem)
+                case 5:
+                    //só vai rodar caso todos lutadores estejam cadastrados
+                    if (qtd == 8){
+                        for(int i = 0; i < 12; i++){
+    
+                            int lutador1 = lutas[i][0];
+                            int lutador2 = lutas[i][1];
+    
+                            System.out.println("\n" + nome[lutador1] + " VS " + nome[lutador2]);
+                            }
+                    //mensagem de erro caso não tenha 8 lutadores cadastrados. 
+                    } else {
+                        System.out.print("\nÉ necessário 8 Lutadores cadastrados para mostrar os combates!");
+                    }
+                    break;
+                
+                //calculo da luta entre cada lutador  
+                case 6:
+                    if (qtd < 8){
+                        System.out.println("Cadastre os 8 lutadores primeiro!");
+                        break;
+                    }
+                    int[] combate = new int[8];
+                    
+                    for (int i = 0; i < 12; i++){
+                
+                        int l1 = lutas[i][0];
+                        int l2 = lutas[i][1];
+                        
+                        //faz o dano contra dano
+                        int p1 = dano[l1] - dano[l2];
+                        int p2 = dano[l2] - dano[l1];
+                        
+                        pontuacao[l1][combate[l1]] = p1;
+                        pontuacao[l2][combate[l2]] = p2;
+                        
+                        //registrar a pontuação
+                        combate[l1]++;
+                        combate[l2]++;
+                    }
+                    System.out.println("Lutas executadas com sucesso!");
+                    break;
+                //Pontuação
+                case 7:
+                    for(int i = 0; i < qtd; i++){
+                        System.out.println("\nNome: " + nome[i]);
+                        
+                        System.out.println("Combate 1: " + pontuacao[i][0]);
+                        System.out.println("Combate 2: " + pontuacao[i][1]);
+                        System.out.println("Combate 3: " + pontuacao[i][2]);
+                        
+                        total[i] = pontuacao[i][0] + pontuacao[i][1] + pontuacao[i][2];
+
+                        System.out.println("Total de pontos: " + total[i]);
+                        
+                    }
+                    break;
+                
+                //ranking
+                case 8:
+                    if (qtd < 8){
+                        System.out.println("Você precisa cadastrar todos os lutadores e executar as lutas primeiro!");
+                        break;
+                    }
+                    int[] ranking = new int[8];
+                    
+                    for(int i = 0; i < 8; i++){
+                        ranking[i] = i;
+                    }
+                    
+                    for(int i = 0; i < 7; i++){
+                        for(int j = i + 1; j < 8; j++){
+                            if (total[ranking[j]] > total[ranking[i]]){
+                                //variavel pra não perder os valores
+                                int aux = ranking[i];
+                                ranking[i] = ranking[j];
+                                ranking[j] = aux;
+                            }
+                        }
+                    }
+                    
+                    System.out.println("\n========== RANKING ==========");
+
+                    for(int i = 0; i < qtd; i++){
+                        System.out.println(
+                            (i + 1) + "º - " + nome[ranking[i]] + " (" + total[ranking[i]] + " pontos)");
+                    }
+                    break;
+                
             }
             //while para que, caso seja escolhido 5, o programa seja fechado
-        } while (opcao != 5);
+        } while (opcao != 9);
+        
     }
 }
