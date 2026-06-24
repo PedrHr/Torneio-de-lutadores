@@ -133,7 +133,11 @@ public class Main {
 
                 case 4:
 
-                    System.out.print("Classe (1-4): ");
+                    System.out.print("Classe: " +
+                            "\n(1) Caça " +
+                            "\n(2) Guerra " +
+                            "\n(3) Estratégia " +
+                            "\n(4) Magia \n");
 
                     int classeBusca = entrada.nextInt();
 
